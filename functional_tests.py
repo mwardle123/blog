@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -21,15 +23,31 @@ class NewVisitorTest(unittest.TestCase):
 
         # Check the CV page title
         self.assertIn('CV', self.browser.title)
-        self.fail('Finish the test!')
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('CV', header_text)
 
         # Asked to enter a new item
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Enter a CV item'
+        )
 
         # Type something into a text box
+        inputbox.send_keys('Something')
 
         # When hitting enter, the page updates, and now the page lists the new something
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '1: Something' for row in rows)
+        )
 
         # There is still a text box to add another item. Enter something else
+        self.fail('Finish the test!')
 
         # The page updates again, and now shows both items on the list
 
