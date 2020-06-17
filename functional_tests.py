@@ -40,10 +40,11 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element_by_id('id_list_table')
+        table = self.browser.find_element_by_id('id_cv_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == '1: Something' for row in rows)
+            any(row.text == '1: Something' for row in rows),
+            "New CV item did not appear in table"
         )
 
         # There is still a text box to add another item. Enter something else
