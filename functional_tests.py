@@ -42,11 +42,9 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_cv_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Something' for row in rows),
-            "New CV item did not appear in table"
-        )
-
+        self.assertIn('1: Something', [row.text for row in rows])
+        self.assertIn('2: Something else', [row.text for row in rows])
+            
         # There is still a text box to add another item. Enter something else
         self.fail('Finish the test!')
 

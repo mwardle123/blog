@@ -4,8 +4,13 @@
     </head>
     <body>
         <h1>My CV</h1>
-        <input id="id_new_item" placeholder="Enter a CV item" />
+        <form method="POST">
+            <input name="item_text" id="id_new_item" placeholder="Enter a CV item" />
+            {% csrf_token %}
+        </form>
+
         <table id="id_cv_table">
+            <tr><td>1: {{ new_item_text }}</td></tr>
         </table>
     </body>
 </html>
