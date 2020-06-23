@@ -1,9 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -18,13 +18,13 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_cv_and_retrieve_it_later(self):
         # Checking out homepage
-        self.browser.get('http://127.0.0.1:8000')
+        self.browser.get(self.live_server_url)
 
         # Check the homepage title
         self.assertIn('Matthew Wardle', self.browser.title)
 
         # Checking out the CV page
-        self.browser.get('http://127.0.0.1:8000/cv')
+        self.browser.get(self.live_server_url + '/cv')
 
         # Check the CV page title
         self.assertIn('CV', self.browser.title)
@@ -56,10 +56,6 @@ class NewVisitorTest(unittest.TestCase):
         self.check_for_row_in_list_table('1: Something')
         self.check_for_row_in_list_table('2: Something else')
 
-        # The site has generated a unique URL and it explains thos
+        # The site has generated a unique URL and it explains this
 
         # Visit that URL to see CV is still there.
-
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
-
