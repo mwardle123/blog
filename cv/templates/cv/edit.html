@@ -1,0 +1,10 @@
+{% extends 'cv/base.html' %}
+
+{% block content %}
+    <h2>Edit CV</h2>
+    <form method="POST" class="cv-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    <a class="btn btn-default" href="{% url 'add_core_skill' pk=1 %}">Add Core Skill</a>
+{% endblock %}
