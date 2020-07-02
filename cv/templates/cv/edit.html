@@ -4,7 +4,16 @@
     <h2>Edit CV</h2>
     <form method="POST" class="cv-form">{% csrf_token %}
         {{ form.as_p }}
+        {% for category in categories %}
+            <h2><a href="{% url 'add_item' pk=category.pk %}">{{ category.title }}</a></h2>
+            {% for item in category.items.all %}
+                 <h2>{{ item.text }}</h2>
+            {% endfor %}
+        {% endfor %}
+        <h2><a href="{% url 'category_new' %}" class="btn btn-default" >Add New Category</a></h2>
         <button type="submit" class="save btn btn-default">Save</button>
+        
     </form>
-    <a class="btn btn-default" href="{% url 'add_core_skill' pk=1 %}">Add Core Skill</a>
+    
+    
 {% endblock %}

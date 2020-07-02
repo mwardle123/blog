@@ -4,9 +4,6 @@ from django.utils import timezone
 from abc import ABC, abstractmethod
 from django.db.models import TextField, Model, DateTimeField
 
-class Item(models.Model):
-    text = models.TextField(default='')
-
 class Category(models.Model):
     title = models.CharField(max_length=200)
 
@@ -31,8 +28,8 @@ class CV(models.Model):
     def __str__(self):
         return self.title
 
-class CoreSkill(models.Model):
-    cv = models.ForeignKey('cv.Category', related_name='core_skills', on_delete=models.CASCADE)
+class Item(models.Model):
+    category = models.ForeignKey('cv.Category', related_name='item', on_delete=models.CASCADE, default='')
     text = models.TextField()
 
     def __str__(self):
