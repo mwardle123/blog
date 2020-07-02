@@ -11,15 +11,20 @@ def home_page(request):
     return render(request, 'cv/home.html', {'items': items})
 
 def edit_page(request):
+    cvs = CV.objects.all()
+    if cvs.count() == 0:
+        cv = CV()
+    else:
+        cv = cvs.first()
     categories = Category.objects.all()
     if request.method == "POST":
-        form = CVForm(request.POST)
+        form = CVForm(request.POST, instance=cv)
         if form.is_valid():
             cv = form.save(commit=False)
             cv.save()
             return redirect('/cv/', pk=cv.pk)
     else:
-        form = CVForm()
+        form = CVForm(instance=cv)
     return render(request, 'cv/edit.html', {'categories': categories, 'form': form})
 
 
@@ -31,7 +36,9 @@ def add_item(request, pk):
             core_skill = form.save(commit=False)
             core_skill.category = category
             core_skill.save()
-            return redirect('edit_page', pk=category.pk)
+            categories = Category.objects.all()
+            form = CVForm()
+            return redirect('/cv/edit', {'categories': categories, 'form': form})
     else:
         form = ItemForm()
     return render(request, 'cv/add_item.html', {'form': form, 'category': category})

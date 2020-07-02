@@ -11,6 +11,7 @@ class Category(models.Model):
         return self.title
 
 class CV(models.Model):
+    title = models.CharField(max_length=200, default='CV')
     name = models.CharField(max_length=200)
     addresses = models.TextField()
     mobile_number = models.CharField(max_length=10)
@@ -29,7 +30,7 @@ class CV(models.Model):
         return self.title
 
 class Item(models.Model):
-    category = models.ForeignKey('cv.Category', related_name='item', on_delete=models.CASCADE, default='')
+    category = models.ForeignKey('cv.Category', related_name='items', on_delete=models.CASCADE, default='')
     text = models.TextField()
 
     def __str__(self):
