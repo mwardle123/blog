@@ -17,11 +17,6 @@ class CV(models.Model):
     mobile_number = models.CharField(max_length=10)
     email = models.CharField(max_length=100)
     personal_profile = models.TextField()
-    #core_skills = models.TextField()
-    education_and_qualifications = models.TextField()
-    relevant_experience = models.TextField()
-    work_history = models.TextField()
-    hobbies_and_interests = models.TextField()
 
     def publish(self):
         self.save()
