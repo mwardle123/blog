@@ -1,17 +1,17 @@
 from django.test import TestCase
-from cv.models import Item
+from cv.models import Item, Item2
 
 class HomePageTest(TestCase):
 
     def test_uses_home_template(self):
         response = self.client.get('/cv/')
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'cv/home.html')
 
     def test_can_save_a_POST_request(self):
         self.client.post('/cv/', data={'item_text': 'A new list item'})
 
-        self.assertEqual(Item.objects.count(), 1)
-        new_item = Item.objects.first()
+        self.assertEqual(Item2.objects.count(), 1)
+        new_item = Item2.objects.first()
         self.assertEqual(new_item.text, 'A new list item')
 
     def test_redirects_after_POST(self):
@@ -24,8 +24,8 @@ class HomePageTest(TestCase):
         self.assertEqual(Item.objects.count(), 0)
 
     def test_displays_all_list_items(self):
-        Item.objects.create(text='itemey 1')
-        Item.objects.create(text='itemey 2')
+        Item2.objects.create(text='itemey 1')
+        Item2.objects.create(text='itemey 2')
 
         response = self.client.get('/cv/')
 
@@ -35,15 +35,15 @@ class HomePageTest(TestCase):
 class ItemModelTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
-        first_item = Item()
+        first_item = Item2()
         first_item.text = 'The first (ever) list item'
         first_item.save()
 
-        second_item = Item()
+        second_item = Item2()
         second_item.text = 'Item the second'
         second_item.save()
 
-        saved_items = Item.objects.all()
+        saved_items = Item2.objects.all()
         self.assertEqual(saved_items.count(), 2)
 
         first_saved_item = saved_items[0]

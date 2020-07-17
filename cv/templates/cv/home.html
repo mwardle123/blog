@@ -1,9 +1,6 @@
 {% extends 'cv/base.html' %}
 
 {% block content %}
-    <head>
-        <title>CV</title>
-    </head>
     <body>
         <form method="POST">
             <input name="item_text" id="id_new_item" placeholder="Enter a CV item" />
@@ -15,5 +12,32 @@
                 <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
             {% endfor %}
         </table>
+        {% for x in cv %}
+            <p>
+                <b>Name:</b>
+                {{ x.name }}
+            </p>
+            <p>
+                <b>Addresses:</b>
+                {{ x.address }}
+            </p>
+            <p>
+                <b>Mobile Number:</b>
+                {{ x.mobile_number }}
+            </p>
+            <p>
+                <b>Email:</b>
+                {{ x.email }}
+            </p>
+            <p>
+                <b>Personal Profile:</b>
+                {{ x.personal_profile |linebreaksbr }}
+            </p>
+        {% endfor %}
+        {% for category in categories %}
+            <div class="category">
+                <h2>{{ category.title }}</h2>
+            </div>
+        {% endfor %}
     </body>
 {% endblock %}

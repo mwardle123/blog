@@ -14,19 +14,6 @@ class NewVisitorTest(LiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def wait_for_row_in_list_table(self, row_text):
-        start_time = time.time()
-        while True:  
-            try:
-                table = self.browser.find_element_by_id('id_cv_table')  
-                rows = table.find_elements_by_tag_name('tr')
-                self.assertIn(row_text, [row.text for row in rows])
-                return  
-            except (AssertionError, WebDriverException) as e:  
-                if time.time() - start_time > MAX_WAIT:  
-                    raise e  
-                time.sleep(0.5)
-
     def test_can_start_cv_and_retrieve_it_later(self):
         # Checking out homepage
         self.browser.get(self.live_server_url)
@@ -38,35 +25,44 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url + '/cv')
 
         # Check the CV page title
-        self.assertIn('CV', self.browser.title)
+        self.assertIn('Matthew Wardle CV', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('CV', header_text)
+        self.assertIn('Matthew Wardle CV', header_text)
 
-        # Asked to enter a new item
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        # Edit
+        self.browser.get(self.live_server_url + '/cv/edit')
+
+        title_text = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Edit CV', title_text)
+
+        namebox = self.browser.find_element_by_name('name')
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
-            'Enter a CV item'
+            namebox.get_attribute('placeholder'),
+            ''
         )
+        namebox.send_keys('Matthew Wardle')
 
-        # Type something into a text box
-        inputbox.send_keys('Something')
+        namebox = self.browser.find_element_by_name('addresses')
+        namebox.send_keys('Matthew Wardle')
 
-        # When hitting enter, the page updates, and now the page lists the new something
-        inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: Something')
-            
-        # There is still a text box to add another item. Enter something else
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('Something else')
-        inputbox.send_keys(Keys.ENTER)
+        namebox = self.browser.find_element_by_name('mobile_number')
+        namebox.send_keys('Matthew Wardle')
 
-        # The page updates again, and now shows both items on the list
-        self.wait_for_row_in_list_table('1: Something')
-        self.wait_for_row_in_list_table('2: Something else')
+        namebox = self.browser.find_element_by_name('email')
+        namebox.send_keys('Matthew Wardle')
 
-        # The site has generated a unique URL and it explains this
+        namebox = self.browser.find_element_by_name('personal_profile')
+        namebox.send_keys('Matthew Wardle')
 
-        # Visit that URL to see CV is still there.
+        savebutton = self.browser.find_element_by_xpath("//button[@type='submit']")
+        savebutton.click()
+
+        self.assertIn('Matthew Wardle CV', self.browser.title)
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('Matthew Wardle CV', header_text)
+
+        testtext = self.browser.find_element_by_xpath("//p[b = 'Name:']").text
+        name = testtext.split(":")[-1].strip()
+        self.assertEqual('Matthew Wardle', name)
 
         

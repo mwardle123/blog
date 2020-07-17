@@ -1,14 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from cv.models import Item, CV, Category
+from cv.models import Item, CV, Category, Item2
 from .forms import CVForm, ItemForm, CategoryForm
 
 def home_page(request):
     if request.method == 'POST':
-        Item.objects.create(text=request.POST['item_text'])
+        Item2.objects.create(text=request.POST['item_text'])
         return redirect('/cv/')
 
-    items = Item.objects.all()
-    return render(request, 'cv/home.html', {'items': items})
+    items = Item2.objects.all()
+    categories = Category.objects.all()
+    cv = CV.objects.all()
+    return render(request, 'cv/home.html', {'items': items, 'categories': categories, 'cv': cv})
 
 def edit_page(request):
     cvs = CV.objects.all()
