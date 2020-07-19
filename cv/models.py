@@ -14,7 +14,7 @@ class CV(models.Model):
     title = models.CharField(max_length=200, default='CV')
     name = models.CharField(max_length=200)
     address = models.TextField()
-    mobile_number = models.CharField(max_length=10)
+    mobile_number = models.CharField(max_length=15)
     email = models.CharField(max_length=100)
     personal_profile = models.TextField()
 

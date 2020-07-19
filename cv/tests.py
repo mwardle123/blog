@@ -14,7 +14,7 @@ class HomePageTest(TestCase):
 
         self.assertIn('test_name', response.content.decode())
         self.assertIn('test_address', response.content.decode())
-        self.assertIn('test_mobile_number', response.content.decode())
+        self.assertIn('test_mobile', response.content.decode())
         self.assertIn('test_email', response.content.decode())
         self.assertIn('test_personal_profile', response.content.decode())
 
@@ -22,18 +22,18 @@ class EditPageTest(TestCase):
 
     def test_can_save_a_POST_request(self):
     
-        self.client.post('/cv/edit/', data={'name': 'Matthess', 'address': 'fsf', 'mobile_number': 'sff', 'email': 'sffs', 'personal_profile': 'sffs'})
+        self.client.post('/cv/edit/', data={'name': 'test_name', 'address': 'test_address', 'mobile_number': 'test_mobile', 'email': 'test_email', 'personal_profile': 'test_personal_profile'})
 
         self.assertEqual(CV.objects.count(), 1)
         cv = CV.objects.first()
-        self.assertEqual(cv.name, 'Matthess')
-        self.assertEqual(cv.address, 'fsf')
-        self.assertEqual(cv.mobile_number, 'sff')
-        self.assertEqual(cv.email, 'sffs')
-        self.assertEqual(cv.personal_profile, 'sffs')
+        self.assertEqual(cv.name, 'test_name')
+        self.assertEqual(cv.address, 'test_address')
+        self.assertEqual(cv.mobile_number, 'test_mobile')
+        self.assertEqual(cv.email, 'test_email')
+        self.assertEqual(cv.personal_profile, 'test_personal_profile')
 
     def test_redirects_after_POST(self):
-        response = self.client.post('/cv/edit/', data={'name': 'Matthess', 'address': 'fsf', 'mobile_number': 'sff', 'email': 'sffs', 'personal_profile': 'sffs'})
+        response = self.client.post('/cv/edit/', data={'name': 'Matthew Wardle', 'address': 'test_address', 'mobile_number': 'test_mobile', 'email': 'test_email', 'personal_profile': 'test_personal_profile'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/cv/')
         
@@ -45,17 +45,21 @@ class CVModelTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
         cv = CV()
-        cv.name = 'Matthew Wardle'
-        cv.address = ''
-        cv.mobile_number = ''
-        cv.email = ''
-        cv.personal_profile = ''
+        cv.name = 'test_name'
+        cv.address = 'test_address'
+        cv.mobile_number = 'test_mobile'
+        cv.email = 'test_email'
+        cv.personal_profile = 'test_personal_profile'
         cv.save()
 
         saved_items = CV.objects.all()
         self.assertEqual(saved_items.count(), 1)
 
         first_saved_item = saved_items[0]
-        self.assertEqual(first_saved_item.name, 'Matthew Wardle')
+        self.assertEqual(first_saved_item.name, 'test_name')
+        self.assertEqual(first_saved_item.address, 'test_address')
+        self.assertEqual(first_saved_item.mobile_number, 'test_mobile')
+        self.assertEqual(first_saved_item.email, 'test_email')
+        self.assertEqual(first_saved_item.personal_profile, 'test_personal_profile')
 
     
