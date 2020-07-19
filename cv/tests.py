@@ -1,5 +1,5 @@
 from django.test import TestCase
-from cv.models import Item, Item2
+from cv.models import Item, CV
 
 class HomePageTest(TestCase):
 
@@ -7,48 +7,55 @@ class HomePageTest(TestCase):
         response = self.client.get('/cv/')
         self.assertTemplateUsed(response, 'cv/home.html')
 
-    def test_can_save_a_POST_request(self):
-        self.client.post('/cv/', data={'item_text': 'A new list item'})
+    def test_displays_all_cv_items(self):
+        CV.objects.create(title='CV',name='test_name',address='test_address',mobile_number='test_mobile_number',email='test_email',personal_profile='test_personal_profile')
+        
+        response = self.client.get('/cv/')
 
-        self.assertEqual(Item2.objects.count(), 1)
-        new_item = Item2.objects.first()
-        self.assertEqual(new_item.text, 'A new list item')
+        self.assertIn('test_name', response.content.decode())
+        self.assertIn('test_address', response.content.decode())
+        self.assertIn('test_mobile_number', response.content.decode())
+        self.assertIn('test_email', response.content.decode())
+        self.assertIn('test_personal_profile', response.content.decode())
+
+class EditPageTest(TestCase):
+
+    def test_can_save_a_POST_request(self):
+    
+        self.client.post('/cv/edit/', data={'name': 'Matthess', 'address': 'fsf', 'mobile_number': 'sff', 'email': 'sffs', 'personal_profile': 'sffs'})
+
+        self.assertEqual(CV.objects.count(), 1)
+        cv = CV.objects.first()
+        self.assertEqual(cv.name, 'Matthess')
+        self.assertEqual(cv.address, 'fsf')
+        self.assertEqual(cv.mobile_number, 'sff')
+        self.assertEqual(cv.email, 'sffs')
+        self.assertEqual(cv.personal_profile, 'sffs')
 
     def test_redirects_after_POST(self):
-        response = self.client.post('/cv/', data={'item_text': 'A new list item'})
+        response = self.client.post('/cv/edit/', data={'name': 'Matthess', 'address': 'fsf', 'mobile_number': 'sff', 'email': 'sffs', 'personal_profile': 'sffs'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/cv/')
         
     def test_only_saves_items_when_necessary(self):
-        self.client.get('/cv/')
-        self.assertEqual(Item.objects.count(), 0)
+        self.client.get('/cv/edit')
+        self.assertEqual(CV.objects.count(), 0)
 
-    def test_displays_all_list_items(self):
-        Item2.objects.create(text='itemey 1')
-        Item2.objects.create(text='itemey 2')
-
-        response = self.client.get('/cv/')
-
-        self.assertIn('itemey 1', response.content.decode())
-        self.assertIn('itemey 2', response.content.decode())
-
-class ItemModelTest(TestCase):
+class CVModelTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
-        first_item = Item2()
-        first_item.text = 'The first (ever) list item'
-        first_item.save()
+        cv = CV()
+        cv.name = 'Matthew Wardle'
+        cv.address = ''
+        cv.mobile_number = ''
+        cv.email = ''
+        cv.personal_profile = ''
+        cv.save()
 
-        second_item = Item2()
-        second_item.text = 'Item the second'
-        second_item.save()
-
-        saved_items = Item2.objects.all()
-        self.assertEqual(saved_items.count(), 2)
+        saved_items = CV.objects.all()
+        self.assertEqual(saved_items.count(), 1)
 
         first_saved_item = saved_items[0]
-        second_saved_item = saved_items[1]
-        self.assertEqual(first_saved_item.text, 'The first (ever) list item')
-        self.assertEqual(second_saved_item.text, 'Item the second')
+        self.assertEqual(first_saved_item.name, 'Matthew Wardle')
 
     

@@ -42,7 +42,7 @@ class NewVisitorTest(LiveServerTestCase):
         )
         namebox.send_keys('Matthew Wardle')
 
-        namebox = self.browser.find_element_by_name('addresses')
+        namebox = self.browser.find_element_by_name('address')
         namebox.send_keys('Matthew Wardle')
 
         namebox = self.browser.find_element_by_name('mobile_number')

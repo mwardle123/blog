@@ -1,24 +1,14 @@
 {% extends 'cv/base.html' %}
 
 {% block content %}
-    <body>
-        <form method="POST">
-            <input name="item_text" id="id_new_item" placeholder="Enter a CV item" />
-            {% csrf_token %}
-        </form>
-
-        <table id="id_cv_table">
-            {% for item in items %}
-                <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-            {% endfor %}
-        </table>
+    <body>      
         {% for x in cv %}
             <p>
                 <b>Name:</b>
                 {{ x.name }}
             </p>
             <p>
-                <b>Addresses:</b>
+                <b>Address:</b>
                 {{ x.address }}
             </p>
             <p>
