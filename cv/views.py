@@ -5,7 +5,8 @@ from .forms import CVForm, ItemForm, CategoryForm
 def home_page(request):
     categories = Category.objects.all()
     cv = CV.objects.all()
-    return render(request, 'cv/home.html', {'categories': categories, 'cv': cv})
+    items = Item.objects.all()
+    return render(request, 'cv/home.html', {'categories': categories, 'cv': cv, 'items': items})
 
 def edit_page(request):
     cvs = CV.objects.all()

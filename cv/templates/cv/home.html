@@ -27,6 +27,11 @@
         {% for category in categories %}
             <div class="category">
                 <h2>{{ category.title }}</h2>
+                {% for item in items %}
+                    {% if item.category == category %}
+                        {{ item.text |linebreaksbr }}  
+                    {% endif %}
+                {% endfor %}
             </div>
         {% endfor %}
     </body>
