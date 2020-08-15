@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <body>      
+        {% for x in cv %}
+            <p>
+                <b>Name:</b>
+                {{ x.name }}
+            </p>
+            <p>
+                <b>Address:</b>
+                {{ x.address }}
+            </p>
+            <p>
+                <b>Mobile Number:</b>
+                {{ x.mobile_number }}
+            </p>
+            <p>
+                <b>Email:</b>
+                {{ x.email }}
+            </p>
+            <p>
+                <b>Personal Profile:</b>
+                {{ x.personal_profile |linebreaksbr }}
+            </p>
+        {% endfor %}
+        {% for category in categories %}
+            <div class="category">
+                <h2>{{ category.title }}</h2>
+                {% for item in items %}
+                    {% if item.category == category %}
+                        {{ item.text |linebreaksbr }}  
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </body>
+{% endblock %}
