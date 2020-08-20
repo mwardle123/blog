@@ -25,9 +25,9 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url + '/cv')
 
         # Check the CV page title
-        self.assertIn('Matthew Wardle CV', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('Matthew Wardle CV', header_text)
+        self.assertIn('Matthew Wardle', self.browser.title)
+        header_text = self.browser.find_element_by_class_name('navbar-brand').text
+        self.assertIn('Matthew Wardle', header_text)
 
         # Check the CV Edit page title
         self.browser.get(self.live_server_url + '/cv/edit')
@@ -80,9 +80,9 @@ class NewVisitorTest(LiveServerTestCase):
         savebutton.click()
 
         # Check user is redirected to CV home page after submitting form
-        self.assertIn('Matthew Wardle CV', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('Matthew Wardle CV', header_text)
+        self.assertIn('Matthew Wardle', self.browser.title)
+        header_text = self.browser.find_element_by_class_name('navbar-brand').text
+        self.assertIn('Matthew Wardle', header_text)
 
         # Check name displays in correct place on page
         nametesttext = self.browser.find_element_by_xpath("//p[b = 'Name:']").text

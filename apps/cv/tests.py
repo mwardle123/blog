@@ -1,5 +1,5 @@
 from django.test import TestCase
-from cv.models import Item, CV
+from .models import Item, CV
 
 class HomePageTest(TestCase):
 
@@ -19,6 +19,10 @@ class HomePageTest(TestCase):
         self.assertIn('test_personal_profile', response.content.decode())
 
 class EditPageTest(TestCase):
+
+    def test_uses_edit_template(self):
+        response = self.client.get('/cv/edit/')
+        self.assertTemplateUsed(response, 'cv/edit.html')
 
     def test_can_save_a_POST_request(self):
     
