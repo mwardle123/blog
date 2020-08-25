@@ -25,9 +25,7 @@ class EditPageTest(TestCase):
         self.assertTemplateUsed(response, 'cv/edit.html')
 
     def test_can_save_a_POST_request(self):
-    
         self.client.post('/cv/edit/', data={'name': 'test_name', 'address': 'test_address', 'mobile_number': 'test_mobile', 'email': 'test_email', 'personal_profile': 'test_personal_profile'})
-
         self.assertEqual(CV.objects.count(), 1)
         cv = CV.objects.first()
         self.assertEqual(cv.name, 'test_name')
