@@ -2,38 +2,42 @@
 <html>
     <head>
         <title>Matthew Wardle</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     </head>
-    <nav class="navbar navbar-expand-lg navbar-custom static-top">
+    <nav class="navbar navbar-expand-lg navbar-custom static-top navbar-custom navbar-toggleable-sm">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home_page' %}">Matthew Wardle</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
+          
+          <div class="collapse navbar-collapse" id="myNavigation">
+          <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="{% url 'post_list' %}" class="nav-link">Blog</a>
+                <a href="{% url 'post_list' %}" class="nav-link text-nowrap">Blog</a>
             </li>
             <li class="nav-item">
-            <a href="{% url 'home' %}" class="nav-link">CV</a> 
+            <a href="{% url 'home' %}" class="nav-link text-nowrap">CV</a> 
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                    <a href="{% url 'post_new' %}" class="nav-link">New Post</a>
+                    <a href="{% url 'post_new' %}" class="nav-link text-nowrap">New Post</a>
             </li>
             <li class="nav-item">
-                    <a href="{% url 'post_draft_list' %}" class="nav-link">Drafts</a>
+                    <a href="{% url 'post_draft_list' %}" class="nav-link text-nowrap">Drafts</a>
             </li>
                     <li class="nav-item">
-                    <a href="{% url 'logout' %}" class="nav-link">Log out</a>
+                    <a href="{% url 'logout' %}" class="nav-link text-nowrap">Log out</a>
                     </li>
             {% else %}
             <li class="nav-item">
-                    <a href="{% url 'login' %}" class="nav-link">Login</a>
+                    <a href="{% url 'login' %}" class="nav-link text-nowrap">Login</a>
             </li>
    
              {% endif %} 
