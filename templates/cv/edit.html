@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'cv/base.html' %}
 
 {% block content %}
     <h2>Edit CV</h2>
@@ -10,8 +10,8 @@
                  <p>{{ item.text }}</p>
             {% endfor %}
         {% endfor %}
-        <h2><a href="{% url 'category_new' %}" class="btn btn-default" >Add New Category</a></h2>
-        <button type="submit" class="save btn btn-default">Save</button>
+        <a href="{% url 'category_new' %}" class="btn btn-secondary" >Add New Category</a>
+        <button type="submit" class="save btn btn-primary">Save</button>
         
     </form>
     

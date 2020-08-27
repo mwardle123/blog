@@ -1,0 +1,58 @@
+{% load static %}
+<html>
+    <head>
+        <title>Matthew Wardle</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" /> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap-theme.min.css">
+        <script src="https://kit.fontawesome.com/a488f954d1.js" crossorigin="anonymous"></script>
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    </head>
+    <nav class="navbar navbar-expand-md navbar-custom static-top navbar-toggleable-md">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home_page' %}">Matthew Wardle</a>
+          <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="myNavigation">
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="{% url 'post_list' %}" class="nav-link text-nowrap">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link text-nowrap">CV</a> 
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link text-nowrap">Log out</a>
+                </li>
+            {% else %}
+            <li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link text-nowrap">Login</a>
+            </li>
+   
+             {% endif %} 
+        </ul>
+        </div>
+      </nav>
+    <body>
+        {% block content %}
+        {% endblock %}  
+    </body>
+    <div class="container">
+            <br>    
+            <div class="text-center center-block">     
+                <a href="https://www.facebook.com/matthew.wardle.79"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+                <a href="https://www.instagram.com/mwardle123/"><i id="social-ig" class="fab fa-instagram-square fa-3x social"></i></a>
+                <a href="https://twitter.com/mw200700"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+                <a href="https://www.linkedin.com/in/matthew-wardle-628a07147"><i id="social-ld" class="fa fa-linkedin-square fa-3x social"></i></a>
+                <a href="https://github.com/mwardle123"><i id="social-gh" class="fa fa-github-square fa-3x social"></i></a>
+            </div>
+            <br>
+    </div>
+</html>
