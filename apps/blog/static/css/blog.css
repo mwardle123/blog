@@ -5,10 +5,6 @@
     margin-bottom: 20px;
 }
 
-.container {
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-}
-
 h1, h2, h3, h4 {
     font-family: 'Lobster', cursive;
 }
