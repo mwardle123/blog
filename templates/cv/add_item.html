@@ -4,6 +4,6 @@
     <h2>{{ category.title }} </h2>
     <form method="POST" class="item-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Send</button>
+        <button type="submit" class="btn btn-primary">Send</button>
     </form>
 {% endblock %}

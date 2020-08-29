@@ -1,5 +1,6 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import Item, CV
+from django.contrib.auth.models import User
 
 class HomePageTest(TestCase):
 
@@ -20,11 +21,18 @@ class HomePageTest(TestCase):
 
 class EditPageTest(TestCase):
 
+    def setUp(self):
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        user.save()
+
     def test_uses_edit_template(self):
+        self.client.login(username='testuser', password='12345')
         response = self.client.get('/cv/edit/')
         self.assertTemplateUsed(response, 'cv/edit.html')
 
     def test_can_save_a_POST_request(self):
+        self.client.login(username='testuser', password='12345')
         self.client.post('/cv/edit/', data={'name': 'test_name', 'address': 'test_address', 'mobile_number': 'test_mobile', 'email': 'test_email', 'personal_profile': 'test_personal_profile'})
         self.assertEqual(CV.objects.count(), 1)
         cv = CV.objects.first()
@@ -35,11 +43,13 @@ class EditPageTest(TestCase):
         self.assertEqual(cv.personal_profile, 'test_personal_profile')
 
     def test_redirects_after_POST(self):
+        self.client.login(username='testuser', password='12345')
         response = self.client.post('/cv/edit/', data={'name': 'Matthew Wardle', 'address': 'test_address', 'mobile_number': 'test_mobile', 'email': 'test_email', 'personal_profile': 'test_personal_profile'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/cv/')
         
     def test_only_saves_items_when_necessary(self):
+        self.client.login(username='testuser', password='12345')
         self.client.get('/cv/edit')
         self.assertEqual(CV.objects.count(), 0)
 

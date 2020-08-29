@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 import time
+from django.contrib.auth.models import User
 
 MAX_WAIT = 10
 
@@ -20,6 +21,18 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Check the homepage title
         self.assertIn('Matthew Wardle', self.browser.title)
+
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        user.save()
+        self.browser.get(self.live_server_url + '/accounts/login/')
+        usernamebox = self.browser.find_element_by_name('username')
+        usernamebox.send_keys('testuser')
+        passwordbox = self.browser.find_element_by_name('password')
+        passwordbox.send_keys('12345')
+        enterbutton = self.browser.find_element_by_name('login')
+        enterbutton.click()
+        self.client.login(username='testuser', password='12345')
 
         # Checking out the CV page
         self.browser.get(self.live_server_url + '/cv')
