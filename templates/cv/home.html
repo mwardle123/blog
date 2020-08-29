@@ -8,18 +8,22 @@
                 <b>Name:</b>
                 {{ x.name }}
             </p>
+            <hr>
             <p>
                 <b>Address:</b>
                 {{ x.address }}
             </p>
+            <hr>
             <p>
                 <b>Mobile Number:</b>
                 {{ x.mobile_number }}
             </p>
+            <hr>
             <p>
                 <b>Email:</b>
                 {{ x.email }}
             </p>
+            <hr>
             <p>
                 <b>Personal Profile:</b>
                 {{ x.personal_profile |linebreaksbr }}
@@ -27,12 +31,15 @@
         {% endfor %}
         {% for category in categories %}
             <div class="category">
+                <hr>
                 <h2>{{ category.title }}</h2>
-                {% for item in items %}
-                    {% if item.category == category %}
-                        <a>{{ item.text |linebreaksbr }}</a>    
+                {% for item in category.items.all %}
+                    {% if item.title != "" %}
+                        <b>{{ item.title |linebreaksbr }}</b>
                         <br>
                     {% endif %}
+                    <a>{{ item.text |linebreaksbr }}</a>    
+                    <p></p>
                 {% endfor %}
             </div>
             <br>

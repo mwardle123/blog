@@ -26,6 +26,7 @@ class CV(models.Model):
 
 class Item(models.Model):
     category = models.ForeignKey('cv.Category', related_name='items', on_delete=models.CASCADE, default='')
+    title = models.CharField(max_length=200, default='')
     text = models.TextField()
 
     def __str__(self):

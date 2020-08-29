@@ -5,12 +5,16 @@
     <form method="POST" class="cv-form">{% csrf_token %}
         {{ form.as_p }}
         {% for category in categories %}
-            <h2><a href="{% url 'add_item' pk=category.pk %}">{{ category.title }}</a></h2>
-            {% for item in category.items.all %}
-                 <a>{{ item.text |linebreaksbr }}</a>
-                 <br>
-            {% endfor %}
-            <br>
+            <hr>
+                <h2><a href="{% url 'add_item' pk=category.pk %}">{{ category.title }}</a></h2>
+                {% for item in category.items.all %}
+                    {% if item.title != "" %}
+                        <b>{{ item.title |linebreaksbr }}</b>
+                        <br>
+                    {% endif %}
+                    <a>{{ item.text |linebreaksbr }}</a>    
+                    <p></p>
+                {% endfor %}
         {% endfor %}
         <br>
         <a href="{% url 'category_new' %}" class="btn btn-secondary" >Add New Category</a>
