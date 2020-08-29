@@ -6,7 +6,12 @@
         {{ form.as_p }}
         {% for category in categories %}
             <hr>
-                <h2><a href="{% url 'add_item' pk=category.pk %}">{{ category.title }}</a></h2>
+                <div class = 'edit-heading'><h2><a href="{% url 'add_item' pk=category.pk %}">{{ category.title }}</a></h2></div>
+                <div class = 'edit-remove-buttons'>
+                    <a class="btn btn-primary" href="{% url 'category_edit' pk=category.pk %}">Edit</a>
+                    <a class="btn btn-primary" href="{% url 'category_remove' pk=category.pk %}">Remove</a>
+                </div>
+                <br>
                 {% for item in category.items.all %}
                     {% if item.title != "" %}
                         <b>{{ item.title |linebreaksbr }}</b>

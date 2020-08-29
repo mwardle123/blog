@@ -56,3 +56,24 @@ def category_new(request):
     else:
         form = CategoryForm()
     return render(request, 'cv/add_category.html', {'form': form})
+
+@login_required
+def category_edit(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            categories = Category.objects.all()
+            form = CVForm()
+            return redirect('/cv/edit', {'categories': categories, 'form': form})
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'cv/add_category.html', {'form': form})
+
+@login_required
+def category_remove(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    category.delete()
+    return redirect('/cv/edit')
