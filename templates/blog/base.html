@@ -1,8 +1,9 @@
 {% load static %}
 <html>
+    <div class = "container">
     <head>
         <title>Matthew Wardle</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1", viewport-fit=cover/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -15,7 +16,7 @@
     <nav class="navbar navbar-expand-md navbar-custom static-top navbar-toggleable-md">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home_page' %}">Matthew Wardle</a>
-          <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler ml-auto navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#myNavigation" aria-controls="myNavigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           
@@ -62,5 +63,6 @@
             <a href="https://github.com/mwardle123"><i id="social-gh" class="fa fa-github-square fa-3x social"></i></a>
         </div>
         <br>
+</div>
 </div>
 </html>
