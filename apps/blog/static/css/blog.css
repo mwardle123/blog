@@ -3,6 +3,8 @@
     margin-right: 40px;
     margin-top: 20px;
     margin-bottom: 20px;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 h1, h2, h3, h4 {
