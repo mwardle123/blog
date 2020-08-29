@@ -32,10 +32,10 @@
 }
 
 .content {
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 h1, h2, h3, h4 {
@@ -47,7 +47,7 @@ h1, h2, h3, h4 {
 }
 
 .save {
-  float: right;
+  float: left;
 }
 
 header.masthead {
@@ -55,21 +55,23 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/header-bg.jpg");
+  background-image: url("../assets/img/background.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
   background-size: cover;
 }
+
+
 header.masthead .masthead-subheading {
-  font-size: 1.5rem;
-  font-style: italic;
+  font-size: 2.5rem;
+  font-style: bold;
   line-height: 1.5rem;
   margin-bottom: 25px;
   font-family: "Droid Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 header.masthead .masthead-heading {
-  font-size: 3.25rem;
+  font-size: 4.25rem;
   font-weight: 700;
   line-height: 3.25rem;
   margin-bottom: 2rem;
@@ -82,13 +84,13 @@ header.masthead .masthead-heading {
     padding-bottom: 12.5rem;
   }
   header.masthead .masthead-subheading {
-    font-size: 2.25rem;
-    font-style: italic;
+    font-size: 3.25rem;
+    font-style: bold;
     line-height: 2.25rem;
     margin-bottom: 2rem;
   }
   header.masthead .masthead-heading {
-    font-size: 4.5rem;
+    font-size: 5.0rem;
     font-weight: 700;
     line-height: 4.5rem;
     margin-bottom: 4rem;
@@ -98,4 +100,12 @@ header.masthead .masthead-heading {
 footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+tr>td {
+  padding-bottom: 15px
+}
+
+td {
+  padding-right: 15px
 }

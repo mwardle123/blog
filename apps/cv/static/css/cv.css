@@ -32,10 +32,10 @@
 }
 
 .content {
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 h1, h2, h3, h4 {
@@ -62,13 +62,9 @@ h1, h2, h3, h4 {
 }
 
 .cvitem {
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 .cvitem h2 a, .cvitem h2 a:visited {
     color: #000000;
-}
-
-.comment {
-    margin: 20px 0px 20px 20px;
 }

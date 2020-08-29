@@ -1,7 +1,8 @@
 {% extends 'cv/base.html' %}
 
 {% block content %}
-    <body> 
+    <body>
+        <h2>CV</h2>
         {% for x in cv %}
             <p>
                 <b>Name:</b>
@@ -29,10 +30,12 @@
                 <h2>{{ category.title }}</h2>
                 {% for item in items %}
                     {% if item.category == category %}
-                        {{ item.text |linebreaksbr }}  
+                        <a>{{ item.text |linebreaksbr }}</a>    
+                        <br>
                     {% endif %}
                 {% endfor %}
             </div>
+            <br>
         {% endfor %}
     </body>
 {% endblock %}
