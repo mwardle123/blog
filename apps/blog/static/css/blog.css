@@ -23,13 +23,6 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
-.top-menu, .top-menu:hover, .top-menu:visited {
-    color: #ffffff;
-    float: right;
-    font-size: 26pt;
-    margin-right: 20px;
-}
-
 .post {
     margin-bottom: 30px;
 }
@@ -45,6 +38,8 @@ h1, h2, h3, h4 {
 .navbar-custom {
     background-color: #368eb1;
     margin-top: 0;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
