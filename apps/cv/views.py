@@ -28,22 +28,6 @@ def edit_page(request):
     return render(request, 'cv/edit.html', {'categories': categories, 'form': form})
 
 @login_required
-def add_item(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    if request.method == "POST":
-        form = ItemForm(request.POST)
-        if form.is_valid():
-            core_skill = form.save(commit=False)
-            core_skill.category = category
-            core_skill.save()
-            categories = Category.objects.all()
-            form = CVForm()
-            return redirect('/cv/edit', {'categories': categories, 'form': form})
-    else:
-        form = ItemForm()
-    return render(request, 'cv/add_item.html', {'form': form, 'category': category})
-
-@login_required
 def category_new(request):
     if request.method == "POST":
         form = CategoryForm(request.POST)
@@ -55,7 +39,7 @@ def category_new(request):
             return redirect('/cv/edit', {'categories': categories, 'form': form})
     else:
         form = CategoryForm()
-    return render(request, 'cv/add_category.html', {'form': form})
+    return render(request, 'cv/edit_category.html', {'form': form})
 
 @login_required
 def category_edit(request, pk):
@@ -70,10 +54,53 @@ def category_edit(request, pk):
             return redirect('/cv/edit', {'categories': categories, 'form': form})
     else:
         form = CategoryForm(instance=category)
-    return render(request, 'cv/add_category.html', {'form': form})
+    return render(request, 'cv/edit_category.html', {'form': form})
 
 @login_required
 def category_remove(request, pk):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
     return redirect('/cv/edit')
+
+
+@login_required
+def item_new(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == "POST":
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.category = category
+            item.save()
+            categories = Category.objects.all()
+            form = CVForm()
+            return redirect('/cv/edit', {'categories': categories, 'form': form})
+    else:
+        form = ItemForm()
+    return render(request, 'cv/edit_item.html', {'form': form, 'category': category})
+
+@login_required
+def item_edit(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if request.method == "POST":
+        form = ItemForm(request.POST, instance=item)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.save()
+            categories = Category.objects.all()
+            form = CVForm()
+            return redirect('/cv/edit', {'categories': categories, 'form': form})
+    else:
+        form = ItemForm(instance=item)
+    return render(request, 'cv/edit_item.html', {'form': form})
+
+@login_required
+def item_remove(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    item.delete()
+    return redirect('/cv/edit')
+
+@login_required
+def item_list(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    return render(request, 'cv/item_list.html', {'category': category})

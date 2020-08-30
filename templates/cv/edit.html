@@ -6,7 +6,7 @@
         {{ form.as_p }}
         {% for category in categories %}
             <hr>
-                <div class = 'edit-heading'><h2><a href="{% url 'add_item' pk=category.pk %}">{{ category.title }}</a></h2></div>
+                <div class = 'edit-heading'><h2><a href="{% url 'item_list' pk=category.pk %}">{{ category.title }}</a></h2></div>
                 <div class = 'edit-remove-buttons'>
                     <a class="btn btn-primary" href="{% url 'category_edit' pk=category.pk %}">Edit</a>
                     <a class="btn btn-primary" href="{% url 'category_remove' pk=category.pk %}">Remove</a>
@@ -23,7 +23,7 @@
         {% endfor %}
         <br>
         <a href="{% url 'category_new' %}" class="btn btn-secondary" >Add New Category</a>
-        <button type="submit" class="save btn btn-primary">Save</button>
+        <button type="submit" class="save btn btn-primary" >Save</button>
     </form>
     
     

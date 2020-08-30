@@ -1,0 +1,19 @@
+{% extends 'cv/base.html' %}
+
+{% block content %}
+    <h2>{{ category.title }} </h2>
+    {% for item in category.items.all %}
+        {% if item.title != "" %}
+            <b>{{ item.title |linebreaksbr }}</b>
+            <div class = 'edit-remove-buttons'>
+                <a class="btn btn-primary" href="{% url 'item_edit' pk=item.pk %}">Edit</a>
+                <a class="btn btn-primary" href="{% url 'item_remove' pk=item.pk %}">Remove</a>
+            </div>
+            <br>
+        {% endif %}
+        <a>{{ item.text |linebreaksbr }}</a>    
+        <hr>
+    {% endfor %}
+    <a href="{% url 'item_new' pk=category.pk %}" class="btn btn-secondary" >Add New Item</a>
+    <a class="save btn btn-primary" href="{% url 'edit' %}">Save</a>
+{% endblock %}
