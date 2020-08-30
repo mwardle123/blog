@@ -11,7 +11,13 @@
             </div>
             <br>
         {% endif %}
-        <a>{{ item.text |linebreaksbr }}</a>    
+        <a>{{ item.text |linebreaksbr }}</a>
+        {% if item.title == "" %}
+            <div class = 'edit-remove-buttons'>
+                <a class="btn btn-primary" href="{% url 'item_edit' pk=item.pk %}">Edit</a>
+                <a class="btn btn-primary" href="{% url 'item_remove' pk=item.pk %}">Remove</a>
+            </div>
+        {% endif %} 
         <hr>
     {% endfor %}
     <a href="{% url 'item_new' pk=category.pk %}" class="btn btn-secondary" >Add New Item</a>
