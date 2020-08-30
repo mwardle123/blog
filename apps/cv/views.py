@@ -72,9 +72,8 @@ def item_new(request, pk):
             item = form.save(commit=False)
             item.category = category
             item.save()
-            categories = Category.objects.all()
-            form = CVForm()
-            return redirect('/cv/edit', {'categories': categories, 'form': form})
+            url = '/cv/category/'+str(item.category.pk)+'/list/'
+            return redirect(url)
     else:
         form = ItemForm()
     return render(request, 'cv/edit_item.html', {'form': form, 'category': category})
@@ -87,9 +86,8 @@ def item_edit(request, pk):
         if form.is_valid():
             item = form.save(commit=False)
             item.save()
-            categories = Category.objects.all()
-            form = CVForm()
-            return redirect('/cv/edit', {'categories': categories, 'form': form})
+            url = '/cv/category/'+str(item.category.pk)+'/list/'
+            return redirect(url)
     else:
         form = ItemForm(instance=item)
     return render(request, 'cv/edit_item.html', {'form': form})
@@ -98,7 +96,8 @@ def item_edit(request, pk):
 def item_remove(request, pk):
     item = get_object_or_404(Item, pk=pk)
     item.delete()
-    return redirect('/cv/edit')
+    url = '/cv/category/'+str(item.category.pk)+'/list/'
+    return redirect(url)
 
 @login_required
 def item_list(request, pk):

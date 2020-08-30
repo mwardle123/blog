@@ -26,3 +26,8 @@ urlpatterns = [
     path('', include('apps.blog.urls')),
     path('', include('apps.cv.urls')),
 ]
+
+handler400 = 'mysite.views.handler400'
+handler403 = 'mysite.views.handler403'
+handler404 = 'mysite.views.handler404'
+handler500 = 'mysite.views.handler500'

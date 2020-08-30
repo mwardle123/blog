@@ -127,7 +127,7 @@ class NewVisitorTest(LiveServerTestCase):
         add_category_button = self.browser.find_element_by_xpath('//*[text()="Add New Category"]')
         add_category_button.click()
         title_text = self.browser.find_element_by_tag_name('h2').text
-        self.assertIn('Add New Category', title_text)
+        self.assertIn('New Category', title_text)
 
         # Input new category
         categorybox = self.browser.find_element_by_name('title')
@@ -152,6 +152,8 @@ class NewVisitorTest(LiveServerTestCase):
         work_experience_button.click()
         title_text = self.browser.find_element_by_tag_name('h2').text
         self.assertIn('Work Experience', title_text)
+        new_item_button = self.browser.find_element_by_xpath('//*[text()="Add New Item"]')
+        new_item_button.click()
         textbox = self.browser.find_element_by_name('text')
         self.assertEqual(
             textbox.get_attribute('placeholder'),
@@ -161,9 +163,9 @@ class NewVisitorTest(LiveServerTestCase):
         sendbutton = self.browser.find_element_by_xpath("//button[@type='submit']")
         sendbutton.click()
 
-        # Check submitting text for category redirects to edit page
+        # Check submitting text for item redirects to category page
         title_text = self.browser.find_element_by_tag_name('h2').text
-        self.assertIn('Edit CV', title_text)
+        self.assertIn('Work Experience', title_text)
 
         # Check title and text for new category appears on home page
         response = self.client.get('/cv/')
