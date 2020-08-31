@@ -13,6 +13,7 @@
 /* change the link color */
 .navbar-custom .navbar-nav .nav-link {
   color: #ffffff;
+  font-family: 'Verdana';  
   float: right;
   font-size: 26pt;
   margin-right: 20px;
@@ -20,7 +21,7 @@
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,
 .navbar-custom .nav-item:hover .nav-link {
-  color: blue;
+  color: rgb(30, 90, 180);
 }
 
 .custom-toggler .navbar-toggler-icon {

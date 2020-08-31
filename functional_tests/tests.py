@@ -22,6 +22,20 @@ class NewVisitorTest(LiveServerTestCase):
         # Check the homepage title
         self.assertIn('Matthew Wardle', self.browser.title)
 
+        # Checking out the CV page
+        self.browser.get(self.live_server_url + '/cv')
+
+        # Check the CV page title
+        self.assertIn('Matthew Wardle', self.browser.title)
+        header_text = self.browser.find_element_by_class_name('navbar-brand').text
+        self.assertIn('Matthew Wardle', header_text)
+
+        # Trying to access the CV Edit page title without logging in
+        self.browser.get(self.live_server_url + '/cv/edit')
+        title_text = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Login', title_text)
+
+        # Logging into the website
         user = User.objects.create(username='testuser')
         user.set_password('12345')
         user.save()
@@ -34,19 +48,10 @@ class NewVisitorTest(LiveServerTestCase):
         enterbutton.click()
         self.client.login(username='testuser', password='12345')
 
-        # Checking out the CV page
-        self.browser.get(self.live_server_url + '/cv')
-
-        # Check the CV page title
-        self.assertIn('Matthew Wardle', self.browser.title)
-        header_text = self.browser.find_element_by_class_name('navbar-brand').text
-        self.assertIn('Matthew Wardle', header_text)
-
         # Check the CV Edit page title
         self.browser.get(self.live_server_url + '/cv/edit')
         title_text = self.browser.find_element_by_tag_name('h2').text
         self.assertIn('Edit CV', title_text)
-
 
         # Input Name
         namebox = self.browser.find_element_by_name('name')
@@ -147,7 +152,40 @@ class NewVisitorTest(LiveServerTestCase):
         response = self.client.get('/cv/edit/')
         self.assertIn('Work Experience', response.content.decode())
 
-        # Input text for new category
+        # Input title text for new item
+        work_experience_button = self.browser.find_element_by_xpath('//*[text()="Work Experience"]')
+        work_experience_button.click()
+        title_text = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Work Experience', title_text)
+        new_item_button = self.browser.find_element_by_xpath('//*[text()="Add New Item"]')
+        new_item_button.click()
+        titlebox = self.browser.find_element_by_name('title')
+        self.assertEqual(
+            titlebox.get_attribute('placeholder'),
+            ''
+        )
+        titlebox.send_keys('April 5th')
+        textbox = self.browser.find_element_by_name('text')
+        self.assertEqual(
+            textbox.get_attribute('placeholder'),
+            ''
+        )
+        textbox.send_keys('I did some work experience.')
+        sendbutton = self.browser.find_element_by_xpath("//button[@type='submit']")
+        sendbutton.click()
+
+        # Check submitting title and text for item redirects to category page
+        title_text = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Work Experience', title_text)
+
+        # Check title and text for new category and item appears on home page
+        response = self.client.get('/cv/')
+        self.assertIn('Work Experience', response.content.decode())
+        self.assertIn('April 5th', response.content.decode())
+        self.assertIn('I did some work experience.', response.content.decode())
+
+        # Input just text for new item
+        self.browser.get(self.live_server_url + '/cv/edit')
         work_experience_button = self.browser.find_element_by_xpath('//*[text()="Work Experience"]')
         work_experience_button.click()
         title_text = self.browser.find_element_by_tag_name('h2').text
@@ -159,19 +197,17 @@ class NewVisitorTest(LiveServerTestCase):
             textbox.get_attribute('placeholder'),
             ''
         )
-        textbox.send_keys('I did some work experience.')
+        textbox.send_keys('I did some more work experience.')
         sendbutton = self.browser.find_element_by_xpath("//button[@type='submit']")
         sendbutton.click()
 
-        # Check submitting text for item redirects to category page
+        # Check submitting just text for item redirects to category page
         title_text = self.browser.find_element_by_tag_name('h2').text
         self.assertIn('Work Experience', title_text)
 
-        # Check title and text for new category appears on home page
+        # Check text for new category appears on home page
         response = self.client.get('/cv/')
         self.assertIn('Work Experience', response.content.decode())
-        self.assertIn('I did some work experience.', response.content.decode())
-
-
+        self.assertIn('I did some more work experience.', response.content.decode())
 
 
